@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Problem2.ProcessorScheduling
+﻿namespace Problem2.ProcessorScheduling
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     class ProcessorScheduling
     {
         static void Main()
@@ -21,7 +19,6 @@ namespace Problem2.ProcessorScheduling
 
                 int value = int.Parse(parameters[0]);
                 int deadline = int.Parse(parameters[1]);
-
 
                 if (deadline > maxDeadline)
                 {
@@ -43,7 +40,20 @@ namespace Problem2.ProcessorScheduling
 
             for (int i = maxDeadline; i >= 1; i--)
             {
+                if (tasks.ContainsKey(i))
+                {
+                    foreach (var task in tasks[i])
+                    {
+                        newTasks.Insert(task);
+                    }
+                }
 
+                if (newTasks.Count == 0)
+                {
+                    continue;
+                }
+
+                result.Add(newTasks.ExtractMax());
             }
 
             Console.WriteLine("Optimal schedule: {0}",
